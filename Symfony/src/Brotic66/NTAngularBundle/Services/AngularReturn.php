@@ -24,7 +24,7 @@ final class AngularReturn
     public function __construct()
     {
         $this->response = new Response();
-        $this->response->headers->add(array('Access-Control-Allow-Origin' => '*'));
+        $this->response->headers->add(array('Access-Control-Allow-Headers' => 'Content-Type', 'Access-Control-Allow-Origin' => '*', 'Content-Type' => 'Application/json'));
     }
 
     /**
@@ -46,8 +46,10 @@ final class AngularReturn
         foreach ($params as $name => $value) {
             if (is_object($value)) {
                 $toRtn[$name] = $this->obj2Array($value);
+            } elseif (is_array($value)) {
+                $toRtn[$name] = $this->prepare($value);
             } else {
-                $toRtn[$name] = $value . ' : var';
+                $toRtn[$name] = $value;
             }
         }
         return $toRtn;
@@ -67,9 +69,12 @@ final class AngularReturn
 
                 if (is_object($result))
                     $toRtn[$property->getName()] = $this->obj2Array($result);
+                elseif (is_array($result))
+                    $toRtn[$property->getName()] = $this->prepare($result);
                 else
                     $toRtn[$property->getName()] = $result;
-            } else {
+            }
+            else {
                /**
                 * Devrait renvoyer une exception mais ne le fait pas !
                 */
