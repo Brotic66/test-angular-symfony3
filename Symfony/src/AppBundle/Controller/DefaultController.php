@@ -2,24 +2,34 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\test;
+use AppBundle\Personne;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/test", name="homepage")
+     * @Route("/", name="homepage")
      * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
     {
-        $obj = new test('coucou', 're', new test('salut', 'c', null));
+        $toRtn = array();
+
+        for ($i = 0; $i < 1000; $i++) {
+            $personne = new Personne();
+            $personne->setPrenom('VICO');
+            $personne->setPrenom('Brice');
+            $personne->setAge('22');
+            $personne->setAmis(array());
+
+            $toRtn[] = $personne;
+        }
+
         return $this->get('brotic66_nt_angular.return')
-            ->send(array('test' => 'test', 'test2' => 124, 'test3' => $obj));
+            ->send(array('personnes' => $toRtn));
     }
 }

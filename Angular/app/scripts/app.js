@@ -9,7 +9,7 @@ angular
   $routeProvider
       .when('/', {
         templateUrl: 'views/view1.html',
-        controller: 'MainCtrl',
+        controller: 'mainCtrl',
       })
-      .otherwise({redirectTo: '/view1'});
+      .otherwise({redirectTo: '/'});
 }]);
