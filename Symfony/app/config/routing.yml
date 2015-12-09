@@ -1,8 +1,3 @@
-brotic66_nt_angular:
-    resource: "@Brotic66NTAngularBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
