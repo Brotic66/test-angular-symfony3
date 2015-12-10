@@ -2,13 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Personne;
+use Brotic66\NTAngularBundle\Controller\NTAngularController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends Controller
+class DefaultController extends NTAngularController
 {
     /**
      * @Route("/", name="homepage")
@@ -17,19 +16,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $toRtn = array();
+        $personne = $this->getDoctrine()->getManager()->getRepository('AppBundle:Personne')->find(1);
 
-        for ($i = 0; $i < 1000; $i++) {
-            $personne = new Personne();
-            $personne->setPrenom('VICO');
-            $personne->setPrenom('Brice');
-            $personne->setAge('22');
-            $personne->setAmis(array());
+        $form = $this->NTCreateFormBuilder($personne)
+            ->add('nom')
+            ->add('prenom')
+            ->add('age')
+            ->getForm();
 
-            $toRtn[] = $personne;
-        }
-
-        return $this->get('brotic66_nt_angular.return')
-            ->send(array('personnes' => $toRtn));
+        return $this->NTRender(array('personnes' => $personne, 'form' => $form->createView()));
     }
 }

@@ -14,7 +14,7 @@ use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-final class AngularReturn
+final class NTReturn
 {
     private $response;
 
@@ -62,10 +62,15 @@ final class AngularReturn
         $reflect = new \ReflectionClass(get_class($obj));
         $reflect->getProperties();
         foreach ($reflect->getProperties() as $property) {
-            $getter = 'get' . ucfirst($property->getName());
+            $result = null;
+            if ($property->isPrivate()) {
+                $getter = 'get' . ucfirst($property->getName());
 
-            if ($reflect->hasMethod($getter)) {
-                $result = $obj->$getter();
+                if ($reflect->hasMethod($getter))
+                    $result = $obj->$getter();
+            } elseif ($property->isPublic()) {
+                $result = $property->getValue($obj);
+            }
 
                 if (is_object($result))
                     $toRtn[$property->getName()] = $this->obj2Array($result);
@@ -73,13 +78,6 @@ final class AngularReturn
                     $toRtn[$property->getName()] = $this->prepare($result);
                 else
                     $toRtn[$property->getName()] = $result;
-            }
-            else {
-               /**
-                * Devrait renvoyer une exception mais ne le fait pas !
-                */
-            }
-
         }
 
         return $toRtn;
