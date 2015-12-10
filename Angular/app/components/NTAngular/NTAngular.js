@@ -4,8 +4,8 @@
 angular
     .module('NTAngular', [])
 
-    .controller('inputCtrl', function ($scope) {
-    })
+    .controller('inputCtrl', ['$scope', function ($scope) {
+    }])
 
     .directive('ntInput', function () {
        return {
@@ -21,8 +21,6 @@ angular
                        $scope.type = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'type');
                        $scope.class = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'class');
                        $scope.value = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'value');
-
-                       console.log($scope);
                    }
                });
            }
