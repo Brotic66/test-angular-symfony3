@@ -1,7 +1,9 @@
-<div ng-repeat="personne in rcv.personnes">
-    Nom : {{ personne.nom }}<br />
-    Prenom : {{ personne.prenom }}<br />
-    Age : {{ personne.age }}<br />
-</div>
-
-{{ rcv.form }}
+    <div class="form-group">
+        <nt-input itemscope="rcv" form="form" name="nom"></nt-input>
+    </div>
+    <div class="form-group">
+        <nt-input itemscope="rcv" form="form" name="prenom"></nt-input>
+    </div>
+    <div class="form-group">
+        <nt-input itemscope="rcv" form="form" name="age"></nt-input>
+    </div>

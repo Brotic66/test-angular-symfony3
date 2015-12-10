@@ -16,6 +16,15 @@ class NTFormView
     public function __construct(array $elements)
     {
         $this->elements = $elements;
+
+        /*$this->elements = array();
+
+        $i = 0;
+        foreach ($elements as $name => $type) {
+            $this->elements[$name]['name'] = $name;
+            $this->elements[$name]['type'] = $type;
+            $i++;
+        }*/
     }
 
     /**

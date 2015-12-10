@@ -19,9 +19,16 @@ class DefaultController extends NTAngularController
         $personne = $this->getDoctrine()->getManager()->getRepository('AppBundle:Personne')->find(1);
 
         $form = $this->NTCreateFormBuilder($personne)
-            ->add('nom')
-            ->add('prenom')
-            ->add('age')
+            ->add('nom', 'text', array(
+                'label' => 'Votre nom :',
+                'class' => 'form-control'))
+            ->add('prenom', 'text', array(
+                'class' => 'form-control'
+            ))
+            ->add('age', 'number', array(
+                'label' => 'Quel est votre age ?',
+                'class' => 'form-control'
+            ))
             ->getForm();
 
         return $this->NTRender(array('personnes' => $personne, 'form' => $form->createView()));

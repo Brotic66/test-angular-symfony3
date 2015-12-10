@@ -5,8 +5,10 @@
 
 angular.module('myApp')
     .controller('mainCtrl', function ($scope, $http) {
+        $scope.test = '';
         $http.get('http://localhost:8000/')
             .then(function (response) {
                 $scope.rcv = response.data;
+                $scope.test = 'lol';
             });
     });

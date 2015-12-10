@@ -15,9 +15,21 @@ class NTFormBuilder // extends FormBuilder
 {
     private $elements;
 
-    public function add($elem, $type = 'text')
+    public function add($elem, $type = 'text', $params = array())
     {
-        $this->elements[$elem] = $type;
+        if (array_key_exists('label', $params))
+            $label = $params['label'];
+        else
+            $label = $elem;
+
+        $this->elements[$elem]['type'] = $type;
+        $this->elements[$elem]['label'] = $label;
+
+        foreach ($params as $key => $param) {
+            if ($key != 'label') {
+                $this->elements[$elem][$key] = $param;
+            }
+        }
 
         return $this;
     }
