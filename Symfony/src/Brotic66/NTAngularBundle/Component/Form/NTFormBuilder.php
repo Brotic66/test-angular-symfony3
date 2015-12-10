@@ -14,21 +14,24 @@ use Brotic66\NTAngularBundle\Component\Form\NTForm;
 class NTFormBuilder // extends FormBuilder
 {
     private $elements;
+    private $obj;
+    private $formControl;
+
+    public function __construct($obj)
+    {
+        $this->obj = $obj;
+        $this->formControl = new FormControl($this->obj);
+    }
 
     public function add($elem, $type = 'text', $params = array())
     {
-        if (array_key_exists('label', $params))
-            $label = $params['label'];
-        else
-            $label = $elem;
-
+        $this->elements[$elem]['name'] = $elem;
         $this->elements[$elem]['type'] = $type;
-        $this->elements[$elem]['label'] = $label;
+        $this->elements[$elem]['label'] = $elem;
+        $this->elements[$elem]['value'] = $this->formControl->getValue($elem);
 
         foreach ($params as $key => $param) {
-            if ($key != 'label') {
                 $this->elements[$elem][$key] = $param;
-            }
         }
 
         return $this;

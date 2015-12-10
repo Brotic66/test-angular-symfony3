@@ -15,16 +15,14 @@ angular
            templateUrl: 'components/NTAngular/views/input.html',
            link: function ($scope, element, attrs) {
                $scope.$watch(attrs.itemscope, function (newValue, oldValue) {
-                   if ($scope.rcv !== undefined){
-                      /* console.log($scope);
-                       console.log(eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name));
-                       console.log('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name);*/
-                       console.log('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'name');
-
-                       $scope.name = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'label');
+                   if ($scope.rcv !== undefined) {
+                       $scope.label = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'label');
+                       $scope.name = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'name');
                        $scope.type = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'type');
                        $scope.class = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'class');
-                       console.log($scope.class);
+                       $scope.value = eval('$scope.' + attrs.itemscope + '.' + attrs.form + '.elements.' + attrs.name + '.' + 'value');
+
+                       console.log($scope);
                    }
                });
            }

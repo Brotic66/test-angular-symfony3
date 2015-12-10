@@ -63,12 +63,12 @@ final class NTReturn
         $reflect->getProperties();
         foreach ($reflect->getProperties() as $property) {
             $result = null;
-            if ($property->isPrivate()) {
+            if ($property->isPrivate() || $property->isProtected()) {
                 $getter = 'get' . ucfirst($property->getName());
 
                 if ($reflect->hasMethod($getter))
                     $result = $obj->$getter();
-            } elseif ($property->isPublic()) {
+            } else {
                 $result = $property->getValue($obj);
             }
 
